@@ -17,7 +17,7 @@ Anar a el arxiu script.js i copiar i pegar avaix de la array i editar
 
 ex: 
 
-  { 
+    { 
     id:'Artur', 
     title:'Xifrat Cèsar', 
     category:'Criptografía', 
@@ -25,7 +25,7 @@ ex:
     desc:'Desxifra el següent missatge: sdamvobzxznvmhjgv',
     solution:'solucions/Xifrat_Cesar.txt',
     flag:'flag{xifratgecesarmola}'
-  },
+    },
 
 
 
@@ -72,15 +72,18 @@ copieu això i pegar baix dintre array. es troba en script.js
 
 
 
-  { id:'rev', title:'Atacs força bruta', body:`<p><strong>Els atacs de força bruta</strong> 
+
+    { id:'rev', title:'Atacs força bruta', body:`<p><strong>Els atacs de força bruta</strong> 
+  
      es basen a provar combinacions fins que es dóna amb la que ens dóna accés a l'objectiu que ens trobem atacant. 
-Hi ha diversos tipus d'atacs de força bruta: 
+    
+    Hi ha diversos tipus d'atacs de força bruta: 
 
-Simples: provar combinacions aleatòries de números, lletres i caràcters especials fins que es dóna amb la clau correcta 
+    Simples: provar combinacions aleatòries de números, lletres i caràcters especials fins que es dóna amb la clau correcta 
 
-Diccionari: amb un fitxer de claus filtrades per provar-les contra un usuari
+    Diccionari: amb un fitxer de claus filtrades per provar-les contra un usuari
 
-  </p>` },
+    </p>` },
 
 
 
