@@ -1,0 +1,9 @@
+//Python Script / Solució es el numero 5 = flag{xifratgecesarmola}
+
+string = "sdamvobzxznvmhjgv"
+print("---Possibles Solucions---")
+for i in range(1,26):
+    new_string = ""
+    for letter in string:
+        new_string += chr((ord(letter)+i - 97) %26 +97)
+    print(f"{i}: {new_string}")

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CTF ENTI — Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app" role="application">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">
+          <img src="enti_logo.jpg" alt="Logo" />
+        </div>
+        <div style="display:flex;flex-direction:column;">
+          <div style="font-weight:800;color:#e7fff6">CTF ENTI</div>
+          <div style="font-size:12px;color:var(--muted)">practica · apren</div>
+        </div>
+      </div>
+
+      <div class="nav" role="navigation" aria-label="Main navigation">
+        <button id="btn-ctf" class="active" aria-pressed="true">CTF</button>
+        <button id="btn-learning" aria-pressed="false">Documentació</button>
+      </div>
+    </div>
+
+  
+    <div class="title-area">
+      <div id="hero-title" class="title">ENTI</div>
+      <div class="subtitle">Plataforma per aprendre ciberseguretat</div>
+    </div>
+
+    <div class="content">
+      
+      <div id="section-ctf" class="section active">
+        <div class="controls">
+          <div class="left">Reptes Disponibles</div>
+          <div style="color:var(--muted);font-size:13px">Pressiona un repte per començar</div>
+        </div>
+
+        <div class="grid" id="challenge-grid">
+          
+        </div>
+      </div>
+
+     
+      <div id="section-learning" class="section">
+        <div class="learn-wrap">
+          <aside class="toc" aria-label="Learning contents">
+            <h4>Learning</h4>
+            <ul id="toc-list"></ul>
+          </aside>
+
+          <main class="learn-main" id="learn-main" tabindex="0" aria-live="polite">
+            <h3 id="learn-title" style="margin-top:0;color:var(--accent);font-family:var(--mono)">Welcome</h3>
+            <div id="learn-body" style="color:#dfeff0;line-height:1.6">
+              Trieu un tema a l'esquerra per veure contingut d'aprenentatge. Aquesta àrea és per a consells, eines i exercicis recomanats.
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="modal-root" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
