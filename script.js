@@ -9,6 +9,47 @@ const challenges = [
     solution:'solucions/Xifrat_Cesar.txt',
     flag:'flag{xifratgecesarmola}'
   },
+  
+  { 
+    id:'Pol', 
+    title:'Base64', 
+    category:'Criptografía', 
+    difficulty:'Fàcil',
+    desc:'Desxifra el següent missatge: ZmxhZ3tzZV9kZWNvZGlmaWNhcl9lbl9iYXNlNjR9',
+    solution:'solucions/Base64.txt',
+    flag:'flag{se_decodificar_en_base64}'
+  },
+  { 
+    id: 'Pol', 
+    title: 'Xifrat Vigenère', 
+    category: 'Criptografía', 
+    difficulty: 'Fàcil',
+    desc: 'Desxifra el següent missatge amb la clau "oberta": wkhvixphqkcjddnx',
+    solution: 'solucions/Xifrat_Vigenere.txt',
+    flag: 'flag{vigenere_et_completa}'
+  },
+  
+  { 
+  id: 'Pol', 
+  title: 'Codi ASCII', 
+  category: 'Criptografia', 
+  difficulty: 'Fàcil',
+  desc: 'Desxifra el següent missatge codificat en ASCII: 72 101 108 108 111 32 87 111 114 108 100',
+  solution: 'solucions/ASCII.txt',
+  flag: 'flag{desxifrat_asciiactiu}'
+  },
+  { 
+  id: 'Pol', 
+  title: 'Codi Morse', 
+  category: 'Criptografia', 
+  difficulty: 'Fàcil',
+  desc: 'Desxifra el següent missatge en codi Morse: .... . .-.. .-.. --- / .-- --- .-. .-.. -..',
+  solution: 'solucions/Morse.txt',
+  flag: 'flag{codi_morse_primer_conegut}'
+}
+
+
+
 
 ];
 
@@ -178,3 +219,4 @@ function showTopic(i){
 }
 
 populateTOC();
+
