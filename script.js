@@ -210,6 +210,21 @@ const topics = [
     Diccionari: amb un fitxer de claus filtrades per provar-les contra un usuari
 
   </p>` },
+    {
+    id: 'rev',
+    title: 'ASCII',
+    body: `
+      <p><strong>La codificació ASCII</strong> assigna un nombre a cada caràcter imprimible i de control; 
+      sovint trobaràs dades convertides a llistes d’enters (p. ex. 72 101 108 108 111) 
+      que cal convertir a caràcters per llegir missatges. És una conversió directa i primer pas per a forenses bàsiques.</p>
+
+      <pre style="background-color: #1e1e1e; color: #f5f5f5; padding: 10px; border-radius: 5px; font-family: monospace;">
+# ascii -> text<br>
+nums = "72 101 108 108 111".split()<br>
+print(''.join(chr(int(n)) for n in nums))  # "Hello"
+      </pre>
+    `
+  }
 
 ];
 
@@ -241,5 +256,6 @@ function showTopic(i){
 }
 
 populateTOC();
+
 
 
