@@ -1,0 +1,10 @@
+web: https://www.base64decode.org/es/
+
+import base64
+
+
+cipher = "ZmxhZ3tzZV9kZWNvZGlmaWNhcl9lbl9iYXNlNjR9"
+
+
+decoded = base64.b64decode(cipher).decode('utf-8')
+print(decoded)

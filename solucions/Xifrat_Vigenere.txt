@@ -1,0 +1,17 @@
+def vigenere_decrypt(ciphertext, key):
+    plaintext = ''
+    key = key.lower()
+    key_index = 0
+    for char in ciphertext:
+        if char.isalpha():
+            offset = ord('a')
+            p = (ord(char) - offset - (ord(key[key_index % len(key)]) - offset)) % 26
+            plaintext += chr(p + offset)
+            key_index += 1
+        else:
+            plaintext += char
+    return plaintext
+
+cipher = "wkhvixphqkcjddnx"
+key = "oberta"
+print(vigenere_decrypt(cipher, key))
