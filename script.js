@@ -30,23 +30,45 @@ const challenges = [
   },
   
   { 
-  id: 'Pol', 
-  title: 'Codi ASCII', 
-  category: 'Criptografia', 
-  difficulty: 'Fàcil',
-  desc: 'Desxifra el següent missatge codificat en ASCII: 72 101 108 108 111 32 87 111 114 108 100',
-  solution: 'solucions/ASCII.txt',
-  flag: 'flag{desxifrat_asciiactiu}'
+    id: 'Pol', 
+    title: 'Codi ASCII', 
+    category: 'Criptografia', 
+    difficulty: 'Fàcil',
+    desc: 'Desxifra el següent missatge codificat en ASCII: 72 101 108 108 111 32 87 111 114 108 100',
+    solution: 'solucions/ASCII.txt',
+    flag: 'flag{desxifrat_asciiactiu}'
   },
   { 
-  id: 'Pol', 
-  title: 'Codi Morse', 
-  category: 'Criptografia', 
-  difficulty: 'Fàcil',
-  desc: 'Desxifra el següent missatge en codi Morse: .... . .-.. .-.. --- / .-- --- .-. .-.. -..',
-  solution: 'solucions/Morse.txt',
-  flag: 'flag{codi_morse_primer_conegut}'
-}
+    id: 'Pol', 
+    title: 'Codi Morse', 
+    category: 'Criptografia', 
+    difficulty: 'Fàcil',
+    desc: 'Desxifra el següent missatge en codi Morse: .... . .-.. .-.. --- / .-- --- .-. .-.. -..',
+    solution: 'solucions/Morse.txt',
+    flag: 'flag{codi_morse_primer_conegut}'
+  },
+  {
+    id: "Pol",
+    title: "Triple Capa",
+    category: "Criptografía",
+    difficulty: "Mitjà",
+    desc: "Desxifra aquest missatge codificat en múltiples capes: Q1ZsbmdmcXJqcWZmYnd2Z3Y=",
+    solution: "solucions/Triple_Capa.txt",
+    flag: "flag{cryptography_is_fun}"
+  },
+  {
+    id: "Pol",
+    title: "XOR Brutal",
+    category: "Criptografía",
+    difficulty: "Mitjà",
+    desc: "Aquest text ha estat xifrat amb XOR i una clau d’1 caràcter desconeguda (en ASCII): 1f0c190e0409110f171a",
+    solution: "solucions/XOR_Brutal.txt",
+    flag: "flag{xor_clau_simple}"
+  }
+
+  
+
+
 
 
 
@@ -219,4 +241,5 @@ function showTopic(i){
 }
 
 populateTOC();
+
 
