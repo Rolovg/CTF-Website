@@ -211,7 +211,7 @@ const topics = [
 
   </p>` },
     {
-    id: 'rev',
+    id: 'ASCII',
     title: 'ASCII',
     body: `
       <p><strong>La codificació ASCII</strong> assigna un nombre a cada caràcter imprimible i de control; 
@@ -224,7 +224,7 @@ nums = "72 101 108 108 111".split()<br>
 print(''.join(chr(int(n)) for n in nums))  # "Hello"
       </pre>
     `
-  }
+  },
 
 ];
 
@@ -256,6 +256,7 @@ function showTopic(i){
 }
 
 populateTOC();
+
 
 
 
