@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roadmap – CTF ENTI</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 80%;
+      margin: 40px auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .step {
+      position: relative;
+      background: var(--card);
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      margin-left: 40px;
+      cursor: pointer;
+    }
+
+    .step::before {
+      content: "";
+      position: absolute;
+      left: -26px;
+      top: 18px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .step-title {
+      font-weight: 800;
+      font-size: 16px;
+      color: #f0e8ff;
+    }
+
+    .step-category {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .progress {
+      text-align: center;
+      font-weight: 700;
+      margin-top: 20px;
+      color: #e7fff6;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo"><img src="enti_logo.jpg" alt="Logo" /></div>
+        <div style="display:flex;flex-direction:column;">
+          <div style="font-weight:800;color:#e7fff6" data-key="title">CTF ENTI</div>
+          <div style="font-size:12px;color:var(--muted)" data-key="subtitle">practica · aprèn</div>
+        </div>
+      </div>
+
+      <div class="nav">
+        <a href="index.html"><button>CTF</button></a>
+        <a href="index.html#section-learning"><button>Documentació</button></a>
+        <button class="active">Roadmap</button>
+      </div>
+    </div>
+
+    <div class="title-area">
+      <div class="title" data-key="roadmap_title">Roadmap d'aprenentatge</div>
+      <div class="subtitle" data-key="roadmap_sub">Segueix un camí aleatori de reptes CTF</div>
+    </div>
+
+    <div id="timeline" class="timeline"></div>
+    <div class="progress" id="progress">0/4 completats</div>
+  </div>
+
+  <button id="lang-toggle" class="lang-switch">Català / Norsk</button>
+
+  <script src="lang.js"></script>
+  <script>
+    const allChallenges = [
+      { title:'Xifrat Cèsar', category:'Criptografia' },
+      { title:'Base64', category:'Criptografia' },
+      { title:'Xifrat Vigenère', category:'Criptografia' },
+      { title:'Codi ASCII', category:'Criptografia' },
+      { title:'Codi Morse', category:'Criptografia' },
+      { title:'Triple Capa', category:'Criptografia' },
+      { title:'XOR Brutal', category:'Criptografia' }
+    ];
+
+    let completed = 0;
+    const total = 4;
+
+    function randomRoadmap() {
+      const timeline = document.getElementById('timeline');
+      timeline.innerHTML = '';
+      const shuffled = [...allChallenges].sort(() => Math.random() - 0.5).slice(0, total);
+      shuffled.forEach((ch, i) => {
+        const step = document.createElement('div');
+        step.className = 'step';
+        step.innerHTML = `
+          <div class="step-title">${ch.title}</div>
+          <div class="step-category">${ch.category}</div>
+        `;
+        step.addEventListener('click', () => openChallenge(ch.title));
+        timeline.appendChild(step);
+      });
+    }
+
+    function openChallenge(name) {
+      alert("Obrint repte: " + name);
+      completed++;
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const progress = document.getElementById('progress');
+      if (completed < total) {
+        progress.textContent = completed + "/" + total + " completats";
+      } else {
+        progress.textContent = "Tots completats! 🔓 Accés al repte final desbloquejat!";
+        showFinalChallenge();
+      }
+    }
+
+    function showFinalChallenge() {
+      const timeline = document.getElementById('timeline');
+      const step = document.createElement('div');
+      step.className = 'step';
+      step.style.border = "1px solid gold";
+      step.innerHTML = `
+        <div class="step-title">🔒 Repte Final (Privat)</div>
+        <div class="step-category">Disponible només si has completat el camí</div>
+      `;
+      step.addEventListener('click', () => {
+            window.location.href = "final_repte.html";
+      });
+      timeline.appendChild(step);
+    }
+
+    randomRoadmap();
+  </script>
+</body>
+</html>
