@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ca">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,37 +14,32 @@
           <img src="enti_logo.jpg" alt="Logo" />
         </div>
         <div style="display:flex;flex-direction:column;">
-          <div style="font-weight:800;color:#e7fff6">CTF ENTI</div>
-          <div style="font-size:12px;color:var(--muted)">practica · aprèn</div>
+          <div style="font-weight:800;color:#e7fff6" data-key="title">CTF ENTI</div>
+          <div style="font-size:12px;color:var(--muted)" data-key="subtitle">practica · aprèn</div>
         </div>
       </div>
 
       <div class="nav" role="navigation" aria-label="Main navigation">
         <button id="btn-ctf" class="active" aria-pressed="true">CTF</button>
         <button id="btn-learning" aria-pressed="false">Documentació</button>
+        <a href="roadmap.html"><button id="btn-roadmap" aria-pressed="false">Roadmap</button></a>
       </div>
     </div>
 
-  
     <div class="title-area">
-      <div id="hero-title" class="title">ENTI</div>
-      <div class="subtitle">Plataforma per aprendre ciberseguretat</div>
+      <div id="hero-title" class="title" data-key="hero_title">ENTI</div>
+      <div class="subtitle" data-key="hero_sub">Plataforma per aprendre ciberseguretat</div>
     </div>
 
     <div class="content">
-      
       <div id="section-ctf" class="section active">
         <div class="controls">
           <div class="left">Reptes Disponibles</div>
           <div style="color:var(--muted);font-size:13px">Pressiona un repte per començar</div>
         </div>
-
-        <div class="grid" id="challenge-grid">
-          
-        </div>
+        <div class="grid" id="challenge-grid"></div>
       </div>
 
-     
       <div id="section-learning" class="section">
         <div class="learn-wrap">
           <aside class="toc" aria-label="Learning contents">
@@ -63,9 +58,11 @@
     </div>
   </div>
 
-
   <div id="modal-root" aria-hidden="true"></div>
 
+  <button id="lang-toggle" class="lang-switch">Català / Norsk</button>
+
+  <script src="lang.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
