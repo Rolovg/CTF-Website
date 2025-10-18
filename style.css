@@ -3,11 +3,11 @@
   --bg-1: linear-gradient(180deg,#041018 0%, #07121a 100%);
   --card: #0f1720;
   --panel: linear-gradient(180deg,#07121a,#081521);
-  --accent: #5b2b8a;           
+  --accent: #5b2b8a;
   --muted: #9aa4ad;
   --glass: rgba(255,255,255,0.03);
   --radius: 12px;
-  --neon: 0 0 18px rgba(91,43,138,0.08), 0 8px 30px rgba(91,43,138,0.04); 
+  --neon: 0 0 18px rgba(91,43,138,0.08), 0 8px 30px rgba(91,43,138,0.04);
   --card-shadow: 0 10px 36px rgba(2,6,23,0.6);
   --mono: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -60,7 +60,6 @@ html, body {
   border-radius: 10px;
 }
 
-
 .nav {
   display: flex;
   gap: 8px;
@@ -82,7 +81,6 @@ html, body {
   box-shadow: inset 0 -2px 0 rgba(91,43,138,0.12);
   transform: translateY(-1px);
 }
-
 
 .title-area {
   display: flex;
@@ -121,7 +119,6 @@ html, body {
   color: #c8d3f0;
 }
 
-
 .grid {
   display: grid;
   gap: 16px;
@@ -150,7 +147,7 @@ html, body {
 .ctitle {
   font-weight: 800;
   font-size: 16px;
-  color: #f0e8ff; 
+  color: #f0e8ff;
 }
 
 .category {
@@ -179,7 +176,6 @@ html, body {
   font-size: 12px;
   color: var(--muted);
 }
-
 
 .card-actions {
   display: flex;
@@ -217,7 +213,6 @@ html, body {
   cursor: pointer;
 }
 
-
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -240,7 +235,6 @@ html, body {
   color: #dff7ef;
 }
 
-
 .flag-area {
   margin-top: 12px;
   display: flex;
@@ -252,7 +246,7 @@ html, body {
   padding: 10px 12px;
   background: rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.06);
-  color: #e6e6f2;               
+  color: #e6e6f2;
   border-radius: 10px;
   min-width: 260px;
   outline: none;
@@ -264,13 +258,11 @@ html, body {
   color: rgba(230,230,240,0.35);
 }
 
-
 .flag-area input:focus {
   box-shadow: 0 6px 18px rgba(91,43,138,0.08);
   border-color: rgba(91,43,138,0.28);
   background: rgba(255,255,255,0.03);
 }
-
 
 .learn-wrap {
   display: flex;
@@ -338,41 +330,11 @@ html, body {
   .logo { width: 40px; height: 40px; }
 }
 
-
-
-.flag-area {
-  margin-top: 14px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.flag-area input {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
-  padding: 10px;
-  color: #eafff6;
-  font-family: var(--mono);
-  flex: 1;
-  outline: none;
-  transition: border 0.2s ease;
-}
-.flag-area input:focus {
-  border-color: var(--accent);
-}
-
-
-.ctitle {
-  color: #f8fff9;
-}
-
-
 .nav button:hover {
   color: var(--accent);
   text-shadow: 0 0 6px rgba(0,230,168,0.6);
   transform: translateY(-1px);
 }
-
 
 .title {
   color: #8a2be2;
@@ -399,4 +361,22 @@ html, body {
   background: #7e46c8;
 }
 
+/* Roadmap page extra styles */
+.roadmap-step {
+  background: var(--panel);
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #e7fff6;
+  box-shadow: 0 0 10px #19ffc466;
+  transition: transform 0.2s;
+}
 
+.roadmap-step:hover {
+  transform: scale(1.05);
+}
+
+.arrow {
+  color: var(--muted);
+  font-size: 18px;
+}
