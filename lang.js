@@ -1,6 +1,6 @@
 const translations = {
   ca: {
-    // UI strings
+  
     title: "CTF ENTI",
     subtitle: "practica · aprèn",
     hero_title: "ENTI",
@@ -24,7 +24,7 @@ const translations = {
     roadmap_generate: "Genera nou recorregut",
     final_unlocked: "Tots completats! Accés al repte final desbloquejat!",
 
-    // challenges (full set from your original content)
+
     challenges: [
       { id:'Artur', title:'Xifrat Cèsar', category:'Criptografia', difficulty:'Fàcil',
         desc:'Desxifra el següent missatge: sdamvobzxznvmhjgv', solution:'solucions/Xifrat_Cesar.txt', flag:'flag{xifratgecesarmola}' },
@@ -48,7 +48,7 @@ const translations = {
         desc:'Aquest text ha estat xifrat amb XOR i una clau d’1 caràcter desconeguda (en ASCII): 1f0c190e0409110f171a', solution:'solucions/XOR_Brutal.txt', flag:'flag{xor_clau_simple}' }
     ],
 
-    // docs (kept/expanded)
+
     docs: [
       { id:'rev', title:'Encriptació',
         body:`<p><strong>L'encriptació</strong> porta amb nosaltres des de temps immemorials, evitant que enemics o persones alienes als nostres interessos puguin llegir els nostres missatges o instruccions.</p>
@@ -84,7 +84,7 @@ print(''.join(chr(int(n)) for n in nums))  # Hello
   },
 
   no: {
-    // Norwegian translations
+ 
     title: "CTF ENTI",
     subtitle: "praktiser · lær",
     hero_title: "ENTI",
@@ -156,7 +156,7 @@ print(''.join(chr(int(n)) for n in nums))  # Hello
   }
 };
 
-// applyTranslations helper used by pages
+
 function applyTranslations(lang) {
   document.querySelectorAll("[data-key]").forEach(el => {
     const key = el.getAttribute("data-key");
@@ -165,3 +165,4 @@ function applyTranslations(lang) {
     }
   });
 }
+
