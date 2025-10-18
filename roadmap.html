@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype html> 
 <html lang="ca">
 <head>
   <meta charset="utf-8" />
@@ -34,7 +34,10 @@
       box-shadow: var(--card-shadow);
       margin-left: 40px;
       cursor: pointer;
+      transition: 0.2s;
     }
+
+    .step:hover { transform: scale(1.02); }
 
     .step::before {
       content: "";
@@ -48,15 +51,16 @@
       box-shadow: 0 0 12px var(--accent);
     }
 
-    .step-title {
-      font-weight: 800;
-      font-size: 16px;
-      color: #f0e8ff;
-    }
+    .step-title { font-weight: 800; font-size: 16px; color: #f0e8ff; }
+    .step-category { color: var(--muted); font-size: 13px; }
 
-    .step-category {
-      color: var(--muted);
-      font-size: 13px;
+    .checkmark {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      font-size: 20px;
+      color: #00ff88;
+      display: none;
     }
 
     .progress {
@@ -64,6 +68,55 @@
       font-weight: 700;
       margin-top: 20px;
       color: #e7fff6;
+    }
+
+    #challenge-modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      color: white;
+      box-shadow: var(--card-shadow);
+    }
+
+    .close {
+      float: right;
+      cursor: pointer;
+      color: var(--muted);
+      font-weight: bold;
+    }
+
+    .close:hover { color: white; }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -79,9 +132,9 @@
       </div>
 
       <div class="nav">
-        <a href="index.html"><button>CTF</button></a>
-        <a href="index.html#section-learning"><button>Documentació</button></a>
-        <button class="active">Roadmap</button>
+        <a href="index.html"><button data-key="nav_ctf">CTF</button></a>
+        <a href="index.html#section-learning"><button data-key="nav_doc">Documentació</button></a>
+        <button class="active" data-key="nav_roadmap">Roadmap</button>
       </div>
     </div>
 
@@ -91,69 +144,174 @@
     </div>
 
     <div id="timeline" class="timeline"></div>
-    <div class="progress" id="progress">0/4 completats</div>
+    <div class="progress" id="progress" data-key="progress_label">Progrés: 0/4</div>
+  </div>
+
+  <div id="challenge-modal">
+    <div class="modal-content">
+      <span class="close" id="close-modal">&times;</span>
+      <h2 id="challenge-title"></h2>
+      <p id="challenge-desc"></p>
+      <input type="text" id="flag-input" placeholder="Introdueix la flag..." />
+      <button id="submit-flag" data-key="submit_btn">Enviar</button>
+      <p id="feedback"></p>
+    </div>
   </div>
 
   <button id="lang-toggle" class="lang-switch">Català / Norsk</button>
 
-  <script src="lang.js"></script>
   <script>
-    const allChallenges = [
-      { title:'Xifrat Cèsar', category:'Criptografia' },
-      { title:'Base64', category:'Criptografia' },
-      { title:'Xifrat Vigenère', category:'Criptografia' },
-      { title:'Codi ASCII', category:'Criptografia' },
-      { title:'Codi Morse', category:'Criptografia' },
-      { title:'Triple Capa', category:'Criptografia' },
-      { title:'XOR Brutal', category:'Criptografia' }
-    ];
+    const translations = {
+      ca: {
+        title: "CTF ENTI",
+        subtitle: "practica · aprèn",
+        nav_ctf: "CTF",
+        nav_doc: "Documentació",
+        nav_roadmap: "Roadmap",
+        roadmap_title: "Roadmap d'aprenentatge",
+        roadmap_sub: "Segueix un camí aleatori de reptes CTF",
+        progress_label: "Progrés: ",
+        submit_btn: "Enviar",
+        correct_flag: "✔ Flag correcta!",
+        wrong_flag: "❌ Flag incorrecta.",
+        final_unlock: "🔒 Repte Final",
+        final_sub: "Desbloquejat completant tots els reptes"
+      },
+      no: {
+        title: "CTF ENTI",
+        subtitle: "praktiser · lær",
+        nav_ctf: "CTF",
+        nav_doc: "Dokumentasjon",
+        nav_roadmap: "Roadmap",
+        roadmap_title: "Læringsvei",
+        roadmap_sub: "Følg en tilfeldig vei med CTF-utfordringer",
+        progress_label: "Fremdrift: ",
+        submit_btn: "Send inn",
+        correct_flag: "✔ Riktig flagg!",
+        wrong_flag: "❌ Feil flagg.",
+        final_unlock: "🔒 Siste utfordring",
+        final_sub: "Låst opp etter å ha fullført alle utfordringer"
+      }
+    };
+
+    const challengeTranslations = {
+      ca: [
+        { title:'Xifrat Cèsar', desc:'Desxifra el següent missatge: sdamvobzxznvmhjgv', flag:'flag{xifratgecesarmola}', category:'Criptografia' },
+        { title:'Base64', desc:'Desxifra el següent missatge: ZmxhZ3tzZV9kZWNvZGlmaWNhcl9lbl9iYXNlNjR9', flag:'flag{se_decodificar_en_base64}', category:'Criptografia' },
+        { title:'Xifrat Vigenère', desc:'Desxifra el següent missatge amb la clau "oberta": wkhvixphqkcjddnx', flag:'flag{vigenere_et_completa}', category:'Criptografia' },
+        { title:'Codi ASCII', desc:'Desxifra el següent missatge codificat en ASCII: 72 101 108 108 111 32 87 111 114 108 100', flag:'flag{desxifrat_asciiactiu}', category:'Criptografia' },
+        { title:'Codi Morse', desc:'Desxifra el següent missatge en codi Morse: .... . .-.. .-.. --- / .-- --- .-. .-.. -..', flag:'flag{codi_morse_primer_conegut}', category:'Criptografia' },
+        { title:'Triple Capa', desc:'Desxifra aquest missatge codificat en múltiples capes: Q1ZsbmdmcXJqcWZmYnd2Z3Y=', flag:'flag{cryptography_is_fun}', category:'Criptografia' },
+        { title:'XOR Brutal', desc:'Aquest text ha estat xifrat amb XOR i una clau d’1 caràcter desconeguda (en ASCII): 1f0c190e0409110f171a', flag:'flag{xor_clau_simple}', category:'Criptografia' }
+      ],
+      no: [
+        { title:'Cæsar-kryptering', desc:'Dekrypter meldingen: sdamvobzxznvmhjgv', flag:'flag{xifratgecesarmola}', category:'Kryptografi' },
+        { title:'Base64', desc:'Dekrypter: ZmxhZ3tzZV9kZWNvZGlmaWNhcl9lbl9iYXNlNjR9', flag:'flag{se_decodificar_en_base64}', category:'Kryptografi' },
+        { title:'Vigenère-kryptering', desc:'Dekrypter med nøkkelen "oberta": wkhvixphqkcjddnx', flag:'flag{vigenere_et_completa}', category:'Kryptografi' },
+        { title:'ASCII-kode', desc:'Dekrypter meldingen kodet i ASCII: 72 101 108 108 111 32 87 111 114 108 100', flag:'flag{desxifrat_asciiactiu}', category:'Kryptografi' },
+        { title:'Morsekode', desc:'Dekrypter morse-meldingen: .... . .-.. .-.. --- / .-- --- .-. .-.. -..', flag:'flag{codi_morse_primer_conegut}', category:'Kryptografi' },
+        { title:'Trippellag', desc:'Dekrypter meldingen kodet i flere lag: Q1ZsbmdmcXJqcWZmYnd2Z3Y=', flag:'flag{cryptography_is_fun}', category:'Kryptografi' },
+        { title:'XOR Angrep', desc:'Denne teksten er kryptert med XOR og en 1-tegns nøkkel (ASCII): 1f0c190e0409110f171a', flag:'flag{xor_clau_simple}', category:'Kryptografi' }
+      ]
+    };
 
     let completed = 0;
     const total = 4;
+    let currentChallenge = null;
+    let currentLang = 'ca';
+    let currentLangChallenges = challengeTranslations[currentLang];
+
+    const modal = document.getElementById('challenge-modal');
+    const closeModal = document.getElementById('close-modal');
+    const submitBtn = document.getElementById('submit-flag');
+    const feedback = document.getElementById('feedback');
+
+    closeModal.onclick = () => { modal.style.display = 'none'; feedback.textContent = ''; };
+    window.onclick = e => { if (e.target == modal) modal.style.display = 'none'; };
+
+    const langToggle = document.getElementById('lang-toggle');
+    langToggle.onclick = () => {
+      currentLang = currentLang === 'ca' ? 'no' : 'ca';
+      document.documentElement.lang = currentLang;
+      updateLang(currentLang);
+      randomRoadmap(); // rebuild roadmap in new language
+      updateProgress();
+    };
+
+    function updateLang(lang) {
+      document.querySelectorAll("[data-key]").forEach(el => {
+        const key = el.getAttribute("data-key");
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      currentLangChallenges = challengeTranslations[lang];
+    }
 
     function randomRoadmap() {
       const timeline = document.getElementById('timeline');
       timeline.innerHTML = '';
-      const shuffled = [...allChallenges].sort(() => Math.random() - 0.5).slice(0, total);
-      shuffled.forEach((ch, i) => {
+      const shuffled = [...currentLangChallenges].sort(() => Math.random() - 0.5).slice(0, total);
+      shuffled.forEach((ch) => {
         const step = document.createElement('div');
         step.className = 'step';
         step.innerHTML = `
           <div class="step-title">${ch.title}</div>
           <div class="step-category">${ch.category}</div>
+          <div class="checkmark">✅</div>
         `;
-        step.addEventListener('click', () => openChallenge(ch.title));
+        step.addEventListener('click', () => openChallenge(ch, step));
         timeline.appendChild(step);
       });
     }
 
-    function openChallenge(name) {
-      alert("Obrint repte: " + name);
-      completed++;
-      updateProgress();
+    function openChallenge(challenge, stepElement) {
+      currentChallenge = { challenge, stepElement };
+      document.getElementById('challenge-title').textContent = challenge.title;
+      document.getElementById('challenge-desc').textContent = challenge.desc;
+      document.getElementById('flag-input').value = '';
+      feedback.textContent = '';
+      modal.style.display = 'flex';
     }
+
+    submitBtn.onclick = () => {
+      const input = document.getElementById('flag-input').value.trim();
+      const lang = document.documentElement.lang;
+      if (!currentChallenge) return;
+      if (input === currentChallenge.challenge.flag) {
+        feedback.style.color = '#00ff88';
+        feedback.textContent = translations[lang].correct_flag;
+        const check = currentChallenge.stepElement.querySelector('.checkmark');
+        if (check && check.style.display !== 'block') {
+          check.style.display = 'block';
+          completed++;
+          updateProgress();
+        }
+        setTimeout(() => { modal.style.display = 'none'; feedback.textContent = ''; }, 800);
+      } else {
+        feedback.style.color = 'red';
+        feedback.textContent = translations[lang].wrong_flag;
+      }
+    };
 
     function updateProgress() {
       const progress = document.getElementById('progress');
-      if (completed < total) {
-        progress.textContent = completed + "/" + total + " completats";
-      } else {
-        progress.textContent = "Tots completats! 🔓 Accés al repte final desbloquejat!";
-        showFinalChallenge();
-      }
+      const lang = document.documentElement.lang;
+      const text = translations[lang].progress_label;
+      progress.textContent = text + completed + "/" + total;
+      if (completed === total) showFinalChallenge();
     }
 
     function showFinalChallenge() {
+      const lang = document.documentElement.lang;
       const timeline = document.getElementById('timeline');
       const step = document.createElement('div');
       step.className = 'step';
       step.style.border = "1px solid gold";
       step.innerHTML = `
-        <div class="step-title">🔒 Repte Final (Privat)</div>
-        <div class="step-category">Disponible només si has completat el camí</div>
+        <div class="step-title">${translations[lang].final_unlock}</div>
+        <div class="step-category">${translations[lang].final_sub}</div>
       `;
       step.addEventListener('click', () => {
-            window.location.href = "final_repte.html";
+        window.location.href = "secret.html";
       });
       timeline.appendChild(step);
     }
