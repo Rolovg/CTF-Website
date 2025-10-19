@@ -1,0 +1,29 @@
+#enunciado
+
+logs = [
+    "user=alice&pass=1234",
+    "user=bob&pass=' OR '1'='1 --",
+    "user=mallory&input=UNION SELECT FLAG{SQLI_detected}",
+    "user=eve&pass=qwerty"
+]
+
+for line in logs:
+    if "UNION" in line or "OR" in line or "--" in line:
+        if "FLAG" in line:
+            print(line)
+            break
+
+#res 
+
+logs = [
+    "user=alice&pass=1234",
+    "user=bob&pass=' OR '1'='1 --",
+    "user=mallory&input=UNION SELECT FLAG{SQLI_detected}",
+    "user=eve&pass=qwerty"
+]
+
+for line in logs:
+    if "UNION" in line or "OR" in line or "--" in line:
+        if "FLAG" in line:
+            print(line)
+            break

@@ -1,0 +1,17 @@
+b64 = "RkxBR3tCYXNlNjRfU2ltcGxlfQ=="
+
+
+# tabla Base64
+abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
+bits = ""
+for c in b64.strip("="):
+    bits += bin(abc.index(c))[2:].zfill(6)
+
+texto = ""
+for i in range(0, len(bits), 8):
+    byte = bits[i:i+8]
+    if len(byte) == 8:
+        texto += chr(int(byte, 2))
+
+print(texto)

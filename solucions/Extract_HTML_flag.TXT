@@ -1,0 +1,24 @@
+#enunciado
+html = """
+<html>
+<body>
+<script>
+var data = "FLAG{XSS_example}";
+</script>
+</body>
+</html>
+"""
+#res
+html = """
+<html>
+<body>
+<script>
+var data = "FLAG{XSS_example}";
+</script>
+</body>
+</html>
+"""
+
+inicio = html.find("FLAG{")
+fin = html.find("}", inicio)
+print(html[inicio:fin+1])

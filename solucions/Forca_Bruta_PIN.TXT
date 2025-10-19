@@ -1,0 +1,15 @@
+#enunciado
+def check(pin):
+    return pin == "0420"
+
+#res
+
+def check(pin):
+    return pin == "0420"
+
+for i in range(10000):
+    p = str(i).zfill(4)
+    if check(p):
+        print("Flag: FLAG{PIN_" + p + "}")
+        break
+

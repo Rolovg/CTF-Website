@@ -1,0 +1,9 @@
+hexs = "464c41477b4865785f636f64655f4578616d706c657d"
+
+hexs = "464c41477b4865785f636f64655f4578616d706c657d"
+
+texto = ""
+for i in range(0, len(hexs), 2):
+    byte = hexs[i:i+2]
+    texto += chr(int(byte, 16))
+print(texto)

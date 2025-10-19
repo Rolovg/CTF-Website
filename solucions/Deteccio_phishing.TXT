@@ -1,0 +1,16 @@
+#enunciado 
+email = """
+Hola, revisa tu cuenta:
+https://legitimo.com
+Pero no abras: https://phish.fake/FLAG{Phish_Example}
+"""
+#res 
+email = """
+Hola, revisa tu cuenta:
+https://legitimo.com
+Pero no abras: https://phish.fake/FLAG{Phish_Example}
+"""
+
+inicio = email.find("FLAG{")
+fin = email.find("}", inicio)
+print(email[inicio:fin+1])

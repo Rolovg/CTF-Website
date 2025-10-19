@@ -1,0 +1,20 @@
+#enunciad
+texto = "Linea1 \nLinea2\t\nLinea3 \nLinea4\t\nLinea5 \nLinea6\t\nLinea7 \nLinea8\t\n"
+
+#res 
+texto = "Linea1 \nLinea2\t\nLinea3 \nLinea4\t\nLinea5 \nLinea6\t\nLinea7 \nLinea8\t\n"
+
+bits = ""
+for line in texto.splitlines():
+    if line.endswith(" "):
+        bits += "0"
+    elif line.endswith("\t"):
+        bits += "1"
+
+mensaje = ""
+for i in range(0, len(bits), 8):
+    byte = bits[i:i+8]
+    if len(byte) == 8:
+        mensaje += chr(int(byte, 2))
+
+print(mensaje)

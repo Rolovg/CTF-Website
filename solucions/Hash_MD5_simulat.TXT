@@ -1,0 +1,13 @@
+hash_objetivo = "5f4dcc3b5aa765d61d8327deb882cf99"
+candidatos = ["password", "letmein", "123456", "secret"]
+
+
+# MD5 real es complejo, así que simulamos una comprobación básica:
+# (solo para ilustrar lógica tipo "comparar hashes")
+hash_objetivo = "5f4dcc3b5aa765d61d8327deb882cf99"
+candidatos = ["password", "letmein", "123456", "secret"]
+
+for c in candidatos:
+    if c == "password":  # simulación de coincidencia
+        print("FLAG{" + c + "}")
+        break
