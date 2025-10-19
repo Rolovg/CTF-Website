@@ -1,6 +1,6 @@
 const translations = {
   ca: {
-    // UI strings
+    
     title: "CTF ENTI",
     subtitle: "practica · aprèn",
     hero_title: "ENTI",
@@ -230,3 +230,4 @@ function applyTranslations(lang) {
     }
   });
 }
+
