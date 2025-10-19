@@ -1,6 +1,6 @@
 const translations = {
   ca: {
-    
+    // UI strings
     title: "CTF ENTI",
     subtitle: "practica · aprèn",
     hero_title: "ENTI",
@@ -85,34 +85,79 @@ const translations = {
     docs: [
       { id:'rev', title:'Encriptació',
         body:`<p><strong>L'encriptació</strong> porta amb nosaltres des de temps immemorials, evitant que enemics o persones alienes als nostres interessos puguin llegir els nostres missatges o instruccions.</p>
-              <p>Un dels primers mètodes d'encriptació va ser el mètode Cèsar, que es basava a moure la posició de la lletra X posicions en una direcció al diccionari.</p>
-              <p>Ex. CASA -> HEXE (desplaçant cada lletra 4 posicions).</p>` },
+              <p>Un dels primers mètodes d'encriptació va ser el <em>mètode Cèsar</em>, que es basava a moure la posició de cada lletra X posicions dins de l'alfabet.</p>
+              <p>Exemple: CASA → HEXE (desplaçant cada lletra 4 posicions).</p>
+              <p>Avui en dia, utilitzem sistemes molt més complexos com AES, RSA o ECC per protegir dades sensibles com contrasenyes o transaccions bancàries.</p>` },
 
-      { id:'brute', title:'Atacs força bruta',
-        body:`<p><strong>Els atacs de força bruta</strong> es basen a provar combinacions fins que es dóna amb la clau correcta.</p>
-              <p>Tipus: Simples (provar totes les combinacions) i Diccionari (provar contrasenyes des d'un fitxer).</p>` },
+      { id:'brute', title:'Atacs de força bruta',
+        body:`<p><strong>Els atacs de força bruta</strong> consisteixen a provar totes les combinacions possibles fins a trobar la correcta.</p>
+              <p>Tipus principals:</p>
+              <ul>
+                <li><strong>Simplicitat:</strong> provar cada combinació (0000–9999).</li>
+                <li><strong>Diccionari:</strong> utilitzar una llista de paraules comunes (per exemple: "password", "123456").</li>
+              </ul>
+              <p>Exemple de codi Python:</p>
+              <pre style="background:#111;padding:8px;border-radius:6px;color:#f5f5f5;font-family:monospace;">
+# Python exemple
+for pin in range(10000):
+    if check(str(pin).zfill(4)):
+        print("PIN trobat:", pin)
+        break
+              </pre>` },
 
       { id:'ASCII', title:'ASCII',
         body:`<p><strong>La codificació ASCII</strong> assigna un nombre a cada caràcter imprimible i de control.</p>
+              <p>És molt utilitzada en exercicis de CTF on cal convertir nombres a text llegible.</p>
               <pre style="background:#111;padding:8px;border-radius:6px;color:#f5f5f5;font-family:monospace;">
-# python example
+# Exemple Python
 nums = "72 101 108 108 111".split()
 print(''.join(chr(int(n)) for n in nums))  # Hello
               </pre>` },
 
       { id:'hash', title:'Hashing',
-        body:`<p>Les funcions <em>hash</em> (MD5, SHA1, SHA256) generen empremtes úniques de dades.</p>
-              <p>S'utilitzen per comprovar integritat o protegir contrasenyes (no emmagatzemar en clar).</p>` },
+        body:`<p>Les funcions <em>hash</em> (MD5, SHA1, SHA256, etc.) converteixen dades en una empremta digital única.</p>
+              <p>Aquesta empremta és pràcticament impossible de revertir. S'utilitza per verificar integritat o protegir contrasenyes.</p>
+              <pre style="background:#111;padding:8px;border-radius:6px;color:#f5f5f5;font-family:monospace;">
+import hashlib
+text = "password"
+print(hashlib.md5(text.encode()).hexdigest())  # 5f4dcc3b5aa765d61d8327deb882cf99
+              </pre>` },
 
       { id:'osint', title:'OSINT',
-        body:`<p>L’OSINT (Open Source Intelligence) és l’art de recopilar informació pública d’Internet per obtenir pistes.</p>
-               <p>Exemples: metadades d'imatges, domini whois, perfils socials, DNS.</p>` },
+        body:`<p>L’<strong>OSINT (Open Source Intelligence)</strong> és l’art de recopilar informació pública a Internet per obtenir pistes o proves.</p>
+              <p>Exemples d’eines i fonts:</p>
+              <ul>
+                <li>Metadades d’imatges (EXIF)</li>
+                <li>Consultes WHOIS de dominis</li>
+                <li>Perfils socials i fòrums</li>
+                <li>Històrics de DNS o IP</li>
+              </ul>` },
 
       { id:'forensic', title:'Forense digital',
-        body:`<p>Analitzar fitxers, imatges o tràfic de xarxa per trobar proves. Una habilitat molt útil en CTFs.</p>` },
+        body:`<p><strong>La forense digital</strong> consisteix a analitzar fitxers, imatges o tràfic de xarxa per trobar evidències ocultes.</p>
+              <p>En CTFs, sovint cal recuperar dades esborrades, identificar banderes amagades en imatges o disseccionar captures de xarxa (PCAPs).</p>
+              <pre style="background:#111;padding:8px;border-radius:6px;color:#f5f5f5;font-family:monospace;">
+# Exemple: extracció d'imatges d'un fitxer .zip
+unzip evidence.zip
+strings dump.jpg | grep FLAG
+              </pre>` },
 
       { id:'web', title:'Seguretat Web',
-        body:`<p>Temes comuns: XSS, SQL Injection, CSRF, LFI/RFI, SSRF — aprèn a trovar i explotar aquests errors en entorns segurs.</p>` }
+        body:`<p><strong>La seguretat web</strong> cobreix un ampli ventall de vulnerabilitats que permeten manipular aplicacions.</p>
+              <p>Algunes de les més comunes són:</p>
+              <ul>
+                <li>XSS (Cross-Site Scripting)</li>
+                <li>SQL Injection (SQLi)</li>
+                <li>CSRF (Cross-Site Request Forgery)</li>
+                <li>LFI/RFI (Local/Remote File Inclusion)</li>
+                <li>SSRF (Server-Side Request Forgery)</li>
+              </ul>
+              <p>Exemple de codi vulnerable:</p>
+              <pre style="background:#111;padding:8px;border-radius:6px;color:#f5f5f5;font-family:monospace;">
+# Exemple PHP vulnerable
+$id = $_GET['id'];
+$query = "SELECT * FROM users WHERE id = '$id'";
+              </pre>` }
     ]
   },
 
@@ -197,26 +242,81 @@ print(''.join(chr(int(n)) for n in nums))  # Hello
     ],
 
     docs: [
-      { id:'rev', title:'Kryptering',
-        body:`<p>Kryptering skjuler meldinger slik at uvedkommende ikke kan lese dem. Cæsar-metoden er en klassiker.</p>` },
+        { id:'rev', title:'Kryptering',
+        body:`<p><strong>Kryptering</strong> har vært med oss siden oldtiden for å hindre at fiender kan lese våre meldinger.</p>
+              <p>En av de første metodene var <em>Cæsar-metoden</em>, hvor hver bokstav flyttes et visst antall posisjoner i alfabetet.</p>
+              <p>Eksempel: HUS → MBX (flyttet 4 plasser).</p>
+              <p>I dag bruker vi mer avanserte systemer som AES, RSA eller ECC for å beskytte sensitive data som passord og banktransaksjoner.</p>` },
 
       { id:'brute', title:'Brute Force-angrep',
-        body:`<p>Brute force angriper prøver alle mulige kombinasjoner til riktig passord er funnet.</p>` },
+        body:`<p><strong>Brute force-angrep</strong> går ut på å prøve alle mulige kombinasjoner til man finner den riktige.</p>
+              <p>Hovedtyper:</p>
+              <ul>
+                <li><strong>Enkel:</strong> prøver alle tall eller tegnkombinasjoner.</li>
+                <li><strong>Ordliste:</strong> bruker en fil med vanlige passord som "password" eller "123456".</li>
+              </ul>
+              <p>Eksempel i Python:</p>
+              <pre style="background:#111;padding:8px;border-radius:6px;color:#f5f5f5;font-family:monospace;">
+# Python-eksempel
+for pin in range(10000):
+    if check(str(pin).zfill(4)):
+        print("PIN funnet:", pin)
+        break
+              </pre>` },
 
       { id:'ASCII', title:'ASCII',
-        body:`<p>ASCII gir hvert tegn et tall. F. eks. "72 101 108 108 111" blir "Hello".</p>` },
+        body:`<p><strong>ASCII-koding</strong> tildeler et tall til hvert trykkbare tegn og kontrolltegn.</p>
+              <p>Ofte brukt i CTF-oppgaver for å konvertere tall til lesbar tekst.</p>
+              <pre style="background:#111;padding:8px;border-radius:6px;color:#f5f5f5;font-family:monospace;">
+# Python-eksempel
+nums = "72 101 108 108 111".split()
+print(''.join(chr(int(n)) for n in nums))  # Hello
+              </pre>` },
 
       { id:'hash', title:'Hashing',
-        body:`<p>Hashfunksjoner som SHA256 og MD5 genererer faste fingeravtrykk av data.</p>` },
+        body:`<p><em>Hash-funksjoner</em> (MD5, SHA1, SHA256) lager en unik digital fingeravtrykk av data.</p>
+              <p>Brukes til å verifisere integritet eller beskytte passord mot direkte lagring.</p>
+              <pre style="background:#111;padding:8px;border-radius:6px;color:#f5f5f5;font-family:monospace;">
+import hashlib
+text = "password"
+print(hashlib.md5(text.encode()).hexdigest())  # 5f4dcc3b5aa765d61d8327deb882cf99
+              </pre>` },
 
       { id:'osint', title:'OSINT',
-        body:`<p>OSINT handler om å samle offentlig informasjon fra nettet for etterforskning.</p>` },
+        body:`<p><strong>OSINT (Open Source Intelligence)</strong> handler om å samle offentlig informasjon fra Internett for å finne spor eller bevis.</p>
+              <p>Eksempler på kilder og verktøy:</p>
+              <ul>
+                <li>Bilde-metadata (EXIF)</li>
+                <li>WHOIS-domeneoppslag</li>
+                <li>Sosiale profiler og forum</li>
+                <li>DNS- eller IP-historikk</li>
+              </ul>` },
 
       { id:'forensic', title:'Digital Forensikk',
-        body:`<p>Digital forensikk analyserer filer og nettverkstrafikk for spor.</p>` },
+        body:`<p><strong>Digital forensikk</strong> handler om å analysere filer, bilder eller nettverkstrafikk for å finne skjulte bevis.</p>
+              <p>I CTF-sammenheng må man ofte hente slettede data, finne skjulte flagg i bilder, eller analysere nettverksfiler (PCAP).</p>
+              <pre style="background:#111;padding:8px;border-radius:6px;color:#f5f5f5;font-family:monospace;">
+# Eksempel: hente ut data fra ZIP
+unzip evidence.zip
+strings dump.jpg | grep FLAG
+              </pre>` },
 
-      { id:'web', title:'Web-sikkerhet',
-        body:`<p>Vanlige feil: XSS, SQLi, CSRF, LFI/RFI og SSRF. Lær å identifisere dem i trygge omgivelser.</p>` }
+      { id:'web', title:'Websikkerhet',
+        body:`<p><strong>Websikkerhet</strong> dekker mange typer sårbarheter som lar angripere manipulere applikasjoner.</p>
+              <p>De vanligste inkluderer:</p>
+              <ul>
+                <li>XSS (Cross-Site Scripting)</li>
+                <li>SQL Injection (SQLi)</li>
+                <li>CSRF (Cross-Site Request Forgery)</li>
+                <li>LFI/RFI (Local/Remote File Inclusion)</li>
+                <li>SSRF (Server-Side Request Forgery)</li>
+              </ul>
+              <p>Sårbart kodeeksempel:</p>
+              <pre style="background:#111;padding:8px;border-radius:6px;color:#f5f5f5;font-family:monospace;">
+# PHP-eksempel (sårbart)
+$id = $_GET['id'];
+$query = "SELECT * FROM users WHERE id = '$id'";
+              </pre>` }
     ]
   }
 };
@@ -230,4 +330,3 @@ function applyTranslations(lang) {
     }
   });
 }
-
