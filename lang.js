@@ -1,6 +1,6 @@
 const translations = {
   ca: {
-  
+    // UI strings
     title: "CTF ENTI",
     subtitle: "practica · aprèn",
     hero_title: "ENTI",
@@ -26,6 +26,39 @@ const translations = {
 
 
     challenges: [
+
+            { id:'Artur', title:'Base64 II', category:'Criptografia', difficulty:'Fàcil',
+        desc:'Tens un text codificat en Base64 guardat a la variable b64. Has de decodificar-lo per obtenir la flag en format FLAG{...}. b64 = "RkxBR3tCYXNlNjRfU2ltcGxlfQ=="',
+        solution:'solucions/Decodificacio_Base64.txt', flag:'FLAG{Base64_Simple}' },
+
+      { id:'Artur', title:'Hex a ASCII', category:'Criptografia', difficulty:'Fàcil',
+        desc:'Tens una cadena hexagonal a la variable hexs. Converteix cada parell de dígits en el seu caràcter ASCII corresponent. hexs = "464c41477b4865785f636f64655f4578616d706c657d"',
+        solution:'solucions/Hex_a_ASCII.txt', flag:'FLAG{Hex_code_Example}' },
+
+      { id:'Artur', title:'Hash MD5 simulat', category:'Criptografia', difficulty:'Fàcil',
+        desc:'Tens una llista de contrasenyes. La correcta genera el hash "5f4dcc3b5aa765d61d8327deb882cf99" (que correspon a "password"). Troba la que coincideix i forma FLAG{paraula}.',
+        solution:'solucions/Hash_MD5_simulat.txt', flag:'FLAG{password}' },
+
+      { id:'Artur', title:'Força bruta PIN', category:'Anàlisi de seguretat', difficulty:'Mitjà',
+        desc:'La funció check(pin) retorna True si el PIN és correcte. Descobreix el PIN provant totes les combinacions de 0000-9999.',
+        solution:'solucions/Forca_Bruta_PIN.txt', flag:'FLAG{PIN_0420}' },
+
+      { id:'Artur', title:'Detecció de patrons sospitosos (SQLi)', category:'Seguretat web', difficulty:'Mitjà',
+        desc:'Analitza una llista d\'intents d\'inici de sessió. Detecta la línia sospitosa que conté la flag FLAG{...}.',
+        solution:'solucions/Deteccio_SQLi.txt', flag:'FLAG{SQLI_detected}' },
+
+      { id:'Artur', title:'Extreure flag d\'un script HTML', category:'Anàlisi web', difficulty:'Fàcil',
+        desc:'Dins d\'una pàgina HTML hi ha un bloc script amb la flag. Has d\'extreure el text FLAG{...}.',
+        solution:'solucions/Extract_HTML_flag.txt', flag:'FLAG{XSS_example}' },
+
+      { id:'Artur', title:'Detecció d\'enllaç sospitós (phishing)', category:'Seguretat', difficulty:'Fàcil',
+        desc:'Troba l\'enllaç amb FLAG{...} dins del text.',
+        solution:'solucions/Deteccio_phishing.txt', flag:'FLAG{Phish_Example}' },
+
+      { id:'Artur', title:'Esteganografia d\'espais', category:'Esteganografia', difficulty:'Mitjà',
+        desc:'Cada línia acaba amb un espai (0) o una tabulació (1). Converteix els bits en caràcters ASCII i troba la flag.',
+        solution:'solucions/Esteganografia_Espais.txt', flag:'U' },
+      
       { id:'Artur', title:'Xifrat Cèsar', category:'Criptografia', difficulty:'Fàcil',
         desc:'Desxifra el següent missatge: sdamvobzxznvmhjgv', solution:'solucions/Xifrat_Cesar.txt', flag:'flag{xifratgecesarmola}' },
 
@@ -109,6 +142,38 @@ print(''.join(chr(int(n)) for n in nums))  # Hello
     final_unlocked: "Alle fullført! Tilgang til sluttoppgaven er låst opp!",
 
     challenges: [
+            { id:'Artur', title:'Base64 II', category:'Kryptografi', difficulty:'Lett',
+        desc:'Du har en tekst kodet i Base64 lagret i variabelen b64. Dekrypter for å få FLAG{...}. b64 = "RkxBR3tCYXNlNjRfU2ltcGxlfQ=="',
+        solution:'solucions/Decodificacio_Base64.txt', flag:'FLAG{Base64_Simple}' },
+
+      { id:'Artur', title:'Hex til ASCII', category:'Kryptografi', difficulty:'Lett',
+        desc:'Konverter hvert heks-par i variabelen hexs til tilsvarende ASCII-tegn. hexs = "464c41477b4865785f636f64655f4578616d706c657d"',
+        solution:'solucions/Hex_a_ASCII.txt', flag:'FLAG{Hex_code_Example}' },
+
+      { id:'Artur', title:'Simulert MD5-hash', category:'Kryptografi', difficulty:'Lett',
+        desc:'Finn passordet som gir MD5-hashen "5f4dcc3b5aa765d61d8327deb882cf99" (passord = "password").',
+        solution:'solucions/Hash_MD5_simulat.txt', flag:'FLAG{password}' },
+
+      { id:'Artur', title:'Brute force PIN', category:'Sikkerhetsanalyse', difficulty:'Middels',
+        desc:'Funksjonen check(pin) returnerer True hvis PIN er riktig. Prøv alle kombinasjoner fra 0000 til 9999.',
+        solution:'solucions/Forca_Bruta_PIN.txt', flag:'FLAG{PIN_0420}' },
+
+      { id:'Artur', title:'Mistenkelig mønster (SQLi)', category:'Web-sikkerhet', difficulty:'Middels',
+        desc:'Analyser innloggingsforsøkene og finn linjen med FLAG{...}.',
+        solution:'solucions/Deteccio_SQLi.txt', flag:'FLAG{SQLI_detected}' },
+
+      { id:'Artur', title:'Finn FLAG i HTML-script', category:'Web-analyse', difficulty:'Lett',
+        desc:'FLAG er skjult inne i et script-element i HTML-koden.',
+        solution:'solucions/Extract_HTML_flag.txt', flag:'FLAG{XSS_example}' },
+
+      { id:'Artur', title:'Oppdag phishing-lenke', category:'Sikkerhet', difficulty:'Lett',
+        desc:'Finn lenken som inneholder FLAG{...} i teksten.',
+        solution:'solucions/Deteccio_phishing.txt', flag:'FLAG{Phish_Example}' },
+
+      { id:'Artur', title:'Mellomrom-steganografi', category:'Steganografi', difficulty:'Middels',
+        desc:'Hver linje ender med et mellomrom (0) eller tab (1). Konverter bitene til tekst og finn FLAG.',
+        solution:'solucions/Esteganografia_Espais.txt', flag:'U' },
+
       { id:'Artur', title:'Cæsar-kryptering', category:'Kryptografi', difficulty:'Lett',
         desc:'Dekrypter meldingen: sdamvobzxznvmhjgv', solution:'solucions/Xifrat_Cesar.txt', flag:'flag{xifratgecesarmola}' },
 
@@ -165,4 +230,3 @@ function applyTranslations(lang) {
     }
   });
 }
-
