@@ -119,6 +119,7 @@
       font-weight: bold;
     }
   </style>
+  </style>
 </head>
 <body>
   <div class="app">
@@ -152,7 +153,7 @@
       <span class="close" id="close-modal">&times;</span>
       <h2 id="challenge-title"></h2>
       <p id="challenge-desc"></p>
-      <input type="text" id="flag-input" placeholder="Flag{...}" />
+      <input type="text" id="flag-input" placeholder="Introdueix la flag..." />
       <button id="submit-flag" data-key="submit_btn">Enviar</button>
       <p id="feedback"></p>
     </div>
@@ -194,24 +195,46 @@
       }
     };
 
+    /* 🔤 Challenge translations */
     const challengeTranslations = {
       ca: [
-        { title:'Xifrat Cèsar', desc:'Desxifra el següent missatge: sdamvobzxznvmhjgv', flag:'flag{xifratgecesarmola}', category:'Criptografia' },
-        { title:'Base64', desc:'Desxifra el següent missatge: ZmxhZ3tzZV9kZWNvZGlmaWNhcl9lbl9iYXNlNjR9', flag:'flag{se_decodificar_en_base64}', category:'Criptografia' },
-        { title:'Xifrat Vigenère', desc:'Desxifra el següent missatge amb la clau "oberta": wkhvixphqkcjddnx', flag:'flag{vigenere_et_completa}', category:'Criptografia' },
-        { title:'Codi ASCII', desc:'Desxifra el següent missatge codificat en ASCII: 72 101 108 108 111 32 87 111 114 108 100', flag:'flag{desxifrat_asciiactiu}', category:'Criptografia' },
-        { title:'Codi Morse', desc:'Desxifra el següent missatge en codi Morse: .... . .-.. .-.. --- / .-- --- .-. .-.. -..', flag:'flag{codi_morse_primer_conegut}', category:'Criptografia' },
-        { title:'Triple Capa', desc:'Desxifra aquest missatge codificat en múltiples capes: Q1ZsbmdmcXJqcWZmYnd2Z3Y=', flag:'flag{cryptography_is_fun}', category:'Criptografia' },
-        { title:'XOR Brutal', desc:'Aquest text ha estat xifrat amb XOR i una clau d’1 caràcter desconeguda (en ASCII): 1f0c190e0409110f171a', flag:'flag{xor_clau_simple}', category:'Criptografia' }
+        { title:'Xifrat Cèsar', desc:'Has rebut un missatge xifrat amb un desplaçament desconegut. Pots descobrir la flag?', flag:'flag{cesar}', category:'Criptografia' },
+        { title:'Base64', desc:'Un missatge ha estat codificat en Base64. Decodifica’l i troba la flag.', flag:'flag{base64}', category:'Criptografia' },
+        { title:'Xifrat Vigenère', desc:'Un missatge xifrat amb una clau secreta. Pots descobrir la flag si trobes la clau!', flag:'flag{vigenere}', category:'Criptografia' },
+        { title:'Codi ASCII', desc:'La flag està amagada en codis ASCII. Converteix-los i troba-la.', flag:'flag{ascii}', category:'Criptografia' },
+        { title:'Codi Morse', desc:'Un missatge en Morse t’espera. Tradueix-lo i aconsegueix la flag.', flag:'flag{morse}', category:'Criptografia' },
+        { title:'Triple Capa', desc:'Tres capes de xifrat protegeixen la flag. Pots arribar al fons?', flag:'flag{triple}', category:'Criptografia' },
+        { title:'XOR Brutal', desc:'Un missatge xifrat amb XOR. Troba la clau i obtén la flag.', flag:'flag{xor}', category:'Criptografia' },
+
+        /* ✨ Nous reptes */
+        { title:'Base64 II', desc:'Tens un text codificat en Base64 guardat a la variable b64. Has de decodificar-lo per obtenir la flag en format FLAG{...}. b64 = "RkxBR3tCYXNlNjRfU2ltcGxlfQ=="', flag:'FLAG{Base64_Simple}', category:'Criptografia' },
+        { title:'Hex a ASCII', desc:'Tens una cadena hexagonal a la variable hexs. Converteix cada parell de dígits en el seu caràcter ASCII corresponent. hexs = "464c41477b4865785f636f64655f4578616d706c657d"', flag:'FLAG{Hex_code_Example}', category:'Criptografia' },
+        { title:'Hash MD5 simulat', desc:'Tens una llista de contrasenyes. La correcta genera el hash "5f4dcc3b5aa765d61d8327deb882cf99" (que correspon a "password"). Troba la que coincideix i forma FLAG{paraula}.', flag:'FLAG{password}', category:'Criptografia' },
+        { title:'Força bruta PIN', desc:'La funció check(pin) retorna True si el PIN és correcte. Descobreix el PIN provant totes les combinacions de 0000-9999.', flag:'FLAG{PIN_0420}', category:'Anàlisi de seguretat' },
+        { title:'Detecció de patrons sospitosos (SQLi)', desc:'Analitza una llista d’intents d’inici de sessió i detecta la línia sospitosa amb la flag FLAG{...}.', flag:'FLAG{SQLI_detected}', category:'Seguretat web' },
+        { title:'Extreure flag d’un script HTML', desc:'Dins d’una pàgina HTML hi ha un bloc script amb la flag. Has d’extreure el text FLAG{...}.', flag:'FLAG{XSS_example}', category:'Anàlisi web' },
+        { title:'Detecció d’enllaç sospitós (phishing)', desc:'Troba l’enllaç amb FLAG{...} dins del text.', flag:'FLAG{Phish_Example}', category:'Seguretat' },
+        { title:'Esteganografia d’espais', desc:'Cada línia acaba amb un espai (0) o una tabulació (1). Converteix els bits en caràcters ASCII i troba la flag.', flag:'U', category:'Esteganografia' }
       ],
+
       no: [
-        { title:'Cæsar-kryptering', desc:'Dekrypter meldingen: sdamvobzxznvmhjgv', flag:'flag{xifratgecesarmola}', category:'Kryptografi' },
-        { title:'Base64', desc:'Dekrypter: ZmxhZ3tzZV9kZWNvZGlmaWNhcl9lbl9iYXNlNjR9', flag:'flag{se_decodificar_en_base64}', category:'Kryptografi' },
-        { title:'Vigenère-kryptering', desc:'Dekrypter med nøkkelen "oberta": wkhvixphqkcjddnx', flag:'flag{vigenere_et_completa}', category:'Kryptografi' },
-        { title:'ASCII-kode', desc:'Dekrypter meldingen kodet i ASCII: 72 101 108 108 111 32 87 111 114 108 100', flag:'flag{desxifrat_asciiactiu}', category:'Kryptografi' },
-        { title:'Morsekode', desc:'Dekrypter morse-meldingen: .... . .-.. .-.. --- / .-- --- .-. .-.. -..', flag:'flag{codi_morse_primer_conegut}', category:'Kryptografi' },
-        { title:'Trippellag', desc:'Dekrypter meldingen kodet i flere lag: Q1ZsbmdmcXJqcWZmYnd2Z3Y=', flag:'flag{cryptography_is_fun}', category:'Kryptografi' },
-        { title:'XOR Angrep', desc:'Denne teksten er kryptert med XOR og en 1-tegns nøkkel (ASCII): 1f0c190e0409110f171a', flag:'flag{xor_clau_simple}', category:'Kryptografi' }
+        { title:'Cæsar-kryptering', desc:'Du har mottatt en kryptert melding med ukjent forskyvning. Kan du finne flagget?', flag:'flag{cesar}', category:'Kryptografi' },
+        { title:'Base64', desc:'En melding er kodet i Base64. Dekod den og finn flagget.', flag:'flag{base64}', category:'Kryptografi' },
+        { title:'Vigenère-kryptering', desc:'En melding er kryptert med en hemmelig nøkkel. Finn nøkkelen og oppdag flagget!', flag:'flag{vigenere}', category:'Kryptografi' },
+        { title:'ASCII-kode', desc:'Flagget er skjult i ASCII-koder. Konverter dem og finn det.', flag:'flag{ascii}', category:'Kryptografi' },
+        { title:'Morsekode', desc:'En melding i morsekode venter. Oversett den og få flagget.', flag:'flag{morse}', category:'Kryptografi' },
+        { title:'Trippellag', desc:'Tre lag med kryptering beskytter flagget. Kan du nå bunnen?', flag:'flag{triple}', category:'Kryptografi' },
+        { title:'XOR Angrep', desc:'En melding er kryptert med XOR. Finn nøkkelen og få flagget.', flag:'flag{xor}', category:'Kryptografi' },
+
+        /* ✨ Nye utfordringer */
+        { title:'Base64 II', desc:'Du har en tekst kodet i Base64 lagret i variabelen b64. Dekod den for å få flagget i formatet FLAG{...}.', flag:'FLAG{Base64_Simple}', category:'Kryptografi' },
+        { title:'Hex til ASCII', desc:'Du har en heksadesimal streng i variabelen hexs. Konverter hvert par siffer til tilsvarende ASCII-tegn.', flag:'FLAG{Hex_code_Example}', category:'Kryptografi' },
+        { title:'Simulert MD5-hash', desc:'Du har en liste med passord. Det riktige gir hashen "5f4dcc3b5aa765d61d8327deb882cf99" (som tilsvarer "password"). Finn riktig og skriv FLAG{ord}.', flag:'FLAG{password}', category:'Kryptografi' },
+        { title:'Brute-force PIN', desc:'Funksjonen check(pin) returnerer True hvis PIN er korrekt. Finn PIN ved å teste alle kombinasjoner fra 0000 til 9999.', flag:'FLAG{PIN_0420}', category:'Sikkerhetsanalyse' },
+        { title:'Oppdag mistenkelig mønster (SQLi)', desc:'Analyser en liste med innloggingsforsøk og oppdag linjen med flagget FLAG{...}.', flag:'FLAG{SQLI_detected}', category:'Websikkerhet' },
+        { title:'Trekk ut flagg fra HTML-script', desc:'Inne i en HTML-side er det et script som inneholder flagget. Finn teksten FLAG{...}.', flag:'FLAG{XSS_example}', category:'Webanalyse' },
+        { title:'Oppdag phishing-lenke', desc:'Finn lenken med FLAG{...} i teksten.', flag:'FLAG{Phish_Example}', category:'Sikkerhet' },
+        { title:'Mellomrom-steganografi', desc:'Hver linje slutter med et mellomrom (0) eller en tab (1). Konverter bitene til ASCII-tegn og finn flagget.', flag:'U', category:'Steganografi' }
       ]
     };
 
@@ -234,7 +257,7 @@
       currentLang = currentLang === 'ca' ? 'no' : 'ca';
       document.documentElement.lang = currentLang;
       updateLang(currentLang);
-      randomRoadmap(); // rebuild roadmap in new language
+      randomRoadmap();
       updateProgress();
     };
 
@@ -320,4 +343,3 @@
   </script>
 </body>
 </html>
-
