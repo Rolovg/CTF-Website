@@ -3,7 +3,7 @@
   --bg-1: linear-gradient(180deg,#041018 0%, #07121a 100%);
   --card: #0f1720;
   --panel: linear-gradient(180deg,#07121a,#081521);
-  --accent: #5b2b8a;
+  --accent:  #478abb;
   --muted: #9aa4ad;
   --glass: rgba(255,255,255,0.03);
   --radius: 12px;
@@ -12,6 +12,200 @@
   --mono: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
+/* -------- Suspects (poster-card) -------- */
+.suspect-card{
+  display:grid; grid-template-columns:320px 1fr; gap:24px;
+  background:#0f1218; border:1px solid #1d2330; border-radius:14px; padding:18px;
+}
+.suspect-media{ position:relative; overflow:hidden; border-radius:12px;
+  background:#0b0e14; border:1px solid #1b2130;
+}
+.suspect-media img{ width:100%; height:auto; display:block; filter:saturate(.9) contrast(1.05); }
+.suspect-nameplate{
+  position:absolute; left:50%; transform:translateX(-50%); bottom:12px;
+  background:#e9dfc7; color:#111; font-weight:800; letter-spacing:.08em;
+  padding:8px 12px; border-radius:6px; box-shadow:0 6px 24px rgba(0,0,0,.4);
+}
+.suspect-info h4{ margin:.25rem 0 .5rem; color:var(--accent); }
+.suspect-meta{ list-style:none; padding:0; margin:0 0 10px;
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px;
+}
+.suspect-meta li{
+  display:flex; justify-content:space-between; gap:8px;
+  background:#0b0e14; border:1px solid #1b2130; border-radius:8px;
+  padding:8px 10px; font-size:13px; color:#b9c6d3;
+}
+.suspect-meta .label{ opacity:.75; }
+.pills{ display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 14px; }
+.pill{ background:#111827; border:1px solid #253041; border-radius:999px; padding:4px 10px; font-size:12px; }
+
+/* opcional: fila d'imatges equilibrada (per la intro) */
+.image-row-balanced{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px; }
+.image-balanced{ width:100%; border-radius:10px; border:1px solid #1b2130; display:block; }
+@media (max-width: 960px){ .suspect-card{ grid-template-columns:1fr; } .suspect-meta{ grid-template-columns:1fr; } }
+
+.image-row-clean {
+  display: flex;
+  justify-content: space-between;  /* una a cada costat */
+  align-items: center;
+  flex-wrap: wrap;                 /* per adaptar-se en pantalles petites */
+  margin: 20px 0;
+}
+
+/* Totes les imatges comparteixen mida i estil net */
+.image-clean {
+  width: 45%;                      /* cadascuna ocupa la meitat de l’amplada */
+  max-width: 500px;
+  height: auto;
+  border-radius: 12px;
+  border: none;
+}
+
+.image-row-balanced {
+  display: flex;
+  justify-content: center;          /* centra les imatges */
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 35px;                         /* redueix l’espai entre imatges */
+  margin: 15px 0;
+}
+
+/* Imatges amb mateixa mida i bord suau */
+.image-balanced {
+  flex: 1 1 48%;                    /* comparteixen amplada equitativa */
+  max-width: 480px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid rgba(90, 130, 200, 0.5);  /* blau-gris suau */
+  transition: border-color 0.3s ease;
+}
+
+/* Efecte subtil en hover */
+.image-balanced:hover {
+  border-color: rgba(140, 180, 255, 0.7);
+}
+
+/* Mode mòbil — s’apilen */
+@media (max-width: 768px) {
+  .image-row-balanced {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;                      /* una mica més d’espai en vertical */
+  }
+
+  .image-balanced {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+
+/* Opcional: assegurar que la primera està ben alineada a l’esquerra i la segona a la dreta */
+.image-clean.left {
+  align-self: flex-start;
+}
+
+.image-clean.right {
+  align-self: flex-end;
+}
+
+/* Per a pantalles petites: que passin a una columna */
+@media (max-width: 768px) {
+  .image-row-clean {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .image-clean {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 15px;
+  }
+}
+
+
+/* el contenidor on posarem les capes animades */
+.section-image-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  box-shadow: -20px 0 40px rgba(0, 0, 255, 0.8),
+              20px 0 40px rgba(255, 0, 0, 0.6);
+}
+
+/* la imatge en si */
+.section-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* Capa 1: franja blau→vermell que ES MOU lateralment (lenta) */
+.section-image-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  /* bandes definides amb tall perquè el moviment es noti */
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 255, 0.35) 0%,
+    rgba(0, 0, 255, 0.0) 35%,
+    rgba(255, 0, 0, 0.0) 65%,
+    rgba(255, 0, 0, 0.35) 100%
+  );
+  background-size: 300% 100%;
+  background-position: 0% 0%;
+  animation: policeSweep 8s ease-in-out infinite;
+  /* si el teu fons és fosc, queda molt bé; si no, pots eliminar-ho */
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0.7;
+animation: policeSweep 10s ease-in-out infinite;
+}
+
+/* Capa 2 (opcional): feix de llum estret que travessa (més evident) */
+.section-image-container::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 35%;
+  left: -35%;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 255, 0) 0%,
+    rgba(0, 120, 255, 0.35) 50%,
+    rgba(255, 0, 0, 0) 100%
+  );
+  filter: blur(6px);
+  animation: beamPass 6s linear infinite;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Animació de la capa ampla (blau→vermell) */
+@keyframes policeSweep {
+  0%   { background-position: 0% 0%;   opacity: 0.45; }
+  50%  { background-position: 100% 0%; opacity: 0.75; }
+  100% { background-position: 0% 0%;   opacity: 0.45; }
+}
+
+/* Animació del feix estret: travessa d’esquerra a dreta i torna */
+@keyframes beamPass {
+  0%   { left: -35%; opacity: 0.2; }
+  25%  { left: 10%;  opacity: 0.5; }
+  50%  { left: 50%;  opacity: 0.6; }
+  75%  { left: 90%;  opacity: 0.5; }
+  100% { left: 130%; opacity: 0.2; }
+}
+
+
 
 html, body {
   height: 100%;
@@ -94,14 +288,61 @@ html, body {
 .title {
   font-family: var(--mono);
   color: var(--accent);
-  font-size: 54px;
+  font-size: 64px;
   letter-spacing: 2px;
 }
 
 .subtitle {
-  color: var(--muted);
-  font-size: 13px;
+  color: #ef5a08;
+  font-size: 23px;
 }
+/* Aplica-ho a l'element del títol o logo */
+#hero-title {
+  font-family: var(--mono);
+  font-size: 64px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #fff;
+  animation: sirena 4.8s infinite cubic-bezier(0.65, 0, 0.35, 1); /* canvi suau */
+}
+
+/* Blau ↔ Vermell amb transició fluida */
+@keyframes sirena {
+  0% {
+    color: #009dff; /* blau suau */
+    text-shadow:
+      0 0 12px #009dff,
+      0 0 24px #009dff,
+      0 0 48px #0077ff,
+      0 0 96px #00ccff;
+  }
+  40% {
+    color: #00baff; /* blau més intens abans del canvi */
+    text-shadow:
+      0 0 16px #00baff,
+      0 0 32px #00baff,
+      0 0 64px #0088ff,
+      0 0 128px #00e0ff;
+  }
+  60% {
+    color: #ff0033; /* transició suau cap al vermell */
+    text-shadow:
+      0 0 16px #ff0033,
+      0 0 32px #ff0033,
+      0 0 64px #ff3366,
+      0 0 128px #ff667f;
+  }
+  100% {
+    color: #009dff; /* torna al blau sense salt */
+    text-shadow:
+      0 0 12px #009dff,
+      0 0 24px #009dff,
+      0 0 48px #0077ff,
+      0 0 96px #00ccff;
+  }
+}
+
+
+
 
 .content { display: block; }
 .section { display: none; }
@@ -337,7 +578,7 @@ html, body {
 }
 
 .title {
-  color: #8a2be2;
+  color: #478abb;
 }
 
 .lang-switch {
@@ -352,13 +593,13 @@ html, body {
   font-weight: 700;
   cursor: pointer;
   z-index: 1000;
-  box-shadow: 0 0 10px rgba(91,43,138,0.4);
+  box-shadow: #478abb;
   transition: background 0.2s ease;
   font-size: 13px;
 }
 
 .lang-switch:hover {
-  background: #7e46c8;
+   background: #ff2020;
 }
 
 /* Roadmap page extra styles */
