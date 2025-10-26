@@ -1,6 +1,6 @@
 let currentLang = "ca";
 
-// --- Load and render challenges ---
+
 function loadChallenges() {
   const ch = translations[currentLang].challenges;
   challenges = ch;
@@ -41,7 +41,7 @@ function populateGrid() {
   challenges.forEach(ch => grid.appendChild(mkCard(ch)));
 }
 
-// --- Modal logic ---
+
 const modalRoot = document.getElementById("modal-root");
 
 function openModal(ch) {
@@ -102,109 +102,44 @@ function submitFlag(ch) {
   }
 }
 
-// ==============================
-// SECCIONS I NAVEGACIÓ
-// ==============================
-const btnCtf      = document.getElementById("btn-ctf");
+
+const btnCtf = document.getElementById("btn-ctf");
 const btnLearning = document.getElementById("btn-learning");
-const btnWelcome  = document.getElementById("btn-welcome");
-const btnStory    = document.getElementById("btn-story");
-
-const secCtf      = document.getElementById("section-ctf");
+const secCtf = document.getElementById("section-ctf");
 const secLearning = document.getElementById("section-learning");
-const secWelcome  = document.getElementById("section-welcome");
-const secStory    = document.getElementById("section-story");
-
-function clearActive() {
-  document.querySelectorAll(".topbar .nav button").forEach(b => b.classList.remove("active"));
-  document.querySelectorAll(".content .section").forEach(s => s.classList.remove("active"));
-}
 
 function showSection(name) {
-  clearActive();
-
   if (name === "ctf") {
     secCtf.classList.add("active");
+    secLearning.classList.remove("active");
     btnCtf.classList.add("active");
-    return;
-  }
-  if (name === "learning") {
+    btnLearning.classList.remove("active");
+  } else {
+    secCtf.classList.remove("active");
     secLearning.classList.add("active");
+    btnCtf.classList.remove("active");
     btnLearning.classList.add("active");
-    // configurar docs per a Documentació
-    currentDocsKey = "docs";
-    currentTOC  = tocListLearning;
-    currentBody = bodyLearning;
-    currentTitle = titleLearning;
-    loadDocs();
-    return;
-  }
-  if (name === "welcome") {
-    secWelcome.classList.add("active");
-    btnWelcome.classList.add("active");
-    // configurar docs per a Benvingut
-    currentDocsKey = "welcome_docs";
-    currentTOC  = tocListWelcome;
-    currentBody = bodyWelcome;
-    currentTitle = titleWelcome;
-    loadDocs();
-    return;
-  }
-  if (name === "story") {
-    secStory.classList.add("active");
-    btnStory.classList.add("active");
-    // configurar docs per a Mode Història
-    currentDocsKey = "story_docs";
-    currentTOC  = tocListStory;
-    currentBody = bodyStory;
-    currentTitle = titleStory;
-    loadDocs();
-    return;
   }
 }
 
 btnCtf.addEventListener("click", () => showSection("ctf"));
 btnLearning.addEventListener("click", () => showSection("learning"));
-btnWelcome.addEventListener("click", () => showSection("welcome"));
-btnStory.addEventListener("click", () => showSection("story"));
 
-// ==============================
-// DOCUMENTACIÓ / VISTES TIPUS "LEARN"
-// (reutilitzat per: Documentació, Benvingut, Mode història)
-// ==============================
 
-// Elements de Documentació
-const tocListLearning = document.getElementById("toc-list");
-const titleLearning   = document.getElementById("learn-title");
-const bodyLearning    = document.getElementById("learn-body");
-const mainLearning    = document.getElementById("learn-main");
-
-// Elements de Benvingut
-const tocListWelcome = document.getElementById("toc-list-welcome");
-const titleWelcome   = document.getElementById("learn-title-welcome");
-const bodyWelcome    = document.getElementById("learn-body-welcome");
-const mainWelcome    = document.getElementById("learn-main-welcome");
-
-// Elements de Mode Història
-const tocListStory = document.getElementById("toc-list-story");
-const titleStory   = document.getElementById("learn-title-story");
-const bodyStory    = document.getElementById("learn-body-story");
-const mainStory    = document.getElementById("learn-main-story");
-
-// Estat de la vista learn actual
-let currentDocsKey = "docs"; // "docs" | "welcome_docs" | "story_docs"
 let topics = [];
-let currentTOC = tocListLearning;
-let currentBody = bodyLearning;
-let currentTitle = titleLearning;
 
 function loadDocs() {
-  topics = translations[currentLang][currentDocsKey] || [];
+  topics = translations[currentLang].docs;
   populateTOC();
 }
 
+const tocList = document.getElementById("toc-list");
+const learnMain = document.getElementById("learn-main");
+const learnTitle = document.getElementById("learn-title");
+const learnBody = document.getElementById("learn-body");
+
 function populateTOC() {
-  currentTOC.innerHTML = "";
+  tocList.innerHTML = "";
   topics.forEach((t, idx) => {
     const li = document.createElement("li");
     li.textContent = t.title;
@@ -214,36 +149,25 @@ function populateTOC() {
       if (e.key === "Enter" || e.key === " ") showTopic(idx);
     });
     if (idx === 0) li.classList.add("active");
-    currentTOC.appendChild(li);
+    tocList.appendChild(li);
   });
   showTopic(0);
 }
 
 function showTopic(i) {
   const t = topics[i];
-  Array.from(currentTOC.children).forEach((n, idx) => {
+  Array.from(tocList.children).forEach((n, idx) => {
     n.classList.toggle("active", idx === i);
   });
-  // Títol + cos
-  if (currentTitle) currentTitle.textContent = t?.title || "";
-  currentBody.innerHTML = t?.body || "";
-
-  // Focus accessible al main de la vista actual
-  if (currentBody === bodyLearning) mainLearning.focus();
-  else if (currentBody === bodyWelcome) mainWelcome.focus();
-  else if (currentBody === bodyStory) mainStory.focus();
+  learnTitle.textContent = t.title;
+  learnBody.innerHTML = t.body;
+  learnMain.focus();
 }
 
-// --- Initialization + language toggle ---
+
 document.addEventListener("DOMContentLoaded", () => {
   loadChallenges();
-  // Documentació és la vista "learn" per defecte de dades
-  currentDocsKey = "docs";
-  currentTOC  = tocListLearning;
-  currentBody = bodyLearning;
-  currentTitle = titleLearning;
   loadDocs();
-
   applyTranslations(currentLang);
 
   const langToggle = document.getElementById("lang-toggle");
@@ -251,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
     currentLang = currentLang === "ca" ? "no" : "ca";
     applyTranslations(currentLang);
     loadChallenges();
-    // tornar a pintar la vista learn actual (welcome/docs/story)
     loadDocs();
   });
 });
